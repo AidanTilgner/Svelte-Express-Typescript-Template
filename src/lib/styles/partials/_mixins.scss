@@ -11,3 +11,12 @@
     @content;
   }
 }
+
+// * Styles
+@mixin default-padding {
+  padding: 56px 24px;
+
+  @include desktop {
+    padding: 82px 100px;
+  }
+}

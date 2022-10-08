@@ -6,6 +6,13 @@
   import { globalHistory } from "svelte-routing/src/history";
   import { initSocket } from "@src/bootstrap/socket.io";
   import { messages } from "@lib/stores/socket";
+  import "carbon-components-svelte/css/all.css";
+  import { dispatchAlert } from "@lib/stores/alerts";
+
+  import AlertProvider from "./lib/components/Alerts/AlertProvider.svelte";
+  import Navbar from "./lib/components/Navbar/Navbar.svelte";
+
+  import Landing from "./pages/Landing/Landing.svelte";
 
   initSocket();
 
@@ -24,15 +31,12 @@
 </script>
 
 <main>
+  <AlertProvider />
+  <Navbar />
   <Router {url}>
-    <Route path="*">
-      <div class="content-container">
-        <p>Hello world</p>
-        {#each $messages as message}
-          <p>{message}</p>
-        {/each}
-      </div>
-    </Route>
+    <div class="content-container">
+      <Route path="/" component={Landing} />
+    </div>
   </Router>
 </main>
 
@@ -40,10 +44,6 @@
   @use "./lib/styles/partials/mixins" as *;
 
   .content-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 100vh;
+    @include default-padding;
   }
 </style>
